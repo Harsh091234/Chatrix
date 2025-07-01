@@ -7,6 +7,9 @@ const SearchSlidePanel = ({ isOpen, onClose, handleSearch, loading, setSearch, s
   const { chats, setChats } = ChatState();
   
   const accessChat = async(userId) => {
+    const BACKEND_URI =
+      import.meta.env.VITE_REMOTE_BKND_URI ||
+      import.meta.env.VITE_LOCAL_BKND_URI;
     try {
       const config = {
         headers: {
@@ -14,7 +17,7 @@ const SearchSlidePanel = ({ isOpen, onClose, handleSearch, loading, setSearch, s
           Authorization: `Bearer ${user.token}`
         }
       }
-      const {data} = await axios.post("http://localhost:3000/api/chat", {userId}, config);
+      const {data} = await axios.post(`${BACKEND_URI}/api/chat`, {userId}, config);
       if (!chats.find((c) => c._id === data._id)) {
         setChats([data, ...chats]);
       }

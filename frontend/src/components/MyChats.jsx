@@ -5,6 +5,9 @@ import { FiPlus } from "react-icons/fi";
 import { getSender } from "../config/ChatLogics";
 
 const MyChats = () => {
+  const BACKEND_URI =
+    import.meta.env.VITE_REMOTE_BKND_URI || import.meta.env.VITE_LOCAL_BKND_URI;
+
   const [loggedUser, setLoggedUser] = useState();
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
 
@@ -17,7 +20,7 @@ const MyChats = () => {
         },
       };
       const { data } = await axios.get(
-        "http://localhost:3000/api/chat",
+        `${BACKEND_URI}/api/chat`,
         config
       );
       setChats(data);

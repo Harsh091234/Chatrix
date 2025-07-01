@@ -3,8 +3,16 @@ import  { useState } from "react";
 import { BiShow, BiHide } from "react-icons/bi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+
+
+
 const Login = () => {
-   const [email, setEmail] = useState("");
+  const BACKEND_URI =
+    import.meta.env.VITE_REMOTE_BKND_URI ||
+    import.meta.env.VITE_LOCAL_BKND_URI;
+  
+  const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
       const [show, setShow] = useState(false);
       const [loading, setLoading] = useState(false);
@@ -29,7 +37,7 @@ const Login = () => {
             "Content-Type": "application/json",
           }
         }
-        const {data}  = await axios.post("http://localhost:3000/api/users/login", {email, password}, config); 
+        const {data}  = await axios.post(`${BACKEND_URI}/api/users/login`, {email, password}, config); 
         
           alert("Login Successful");
           localStorage.setItem("userInfo",  JSON.stringify(data));

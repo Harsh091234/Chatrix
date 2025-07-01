@@ -4,6 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const BACKEND_URI =
+    import.meta.env.VITE_REMOTE_BKND_URI || import.meta.env.VITE_LOCAL_BKND_URI;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -68,7 +70,7 @@ const Signup = () => {
             "Content-Type": "application/json",
           }
         }
-        const {data}  = await axios.post("http://localhost:3000/api/users", {name, email, password, pic}, config); 
+        const {data}  = await axios.post(`${BACKEND_URI}/api/users`, {name, email, password, pic}, config); 
           alert("Registration Successful");
           localStorage.setItem("userInfo",  JSON.stringify(data));
           setLoading(false);

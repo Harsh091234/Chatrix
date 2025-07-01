@@ -12,6 +12,9 @@ import { ChatState } from "../../context/ChatProvider";
 
 
 const SideDrawer = () => {
+  const BACKEND_URI =
+    import.meta.env.VITE_REMOTE_BKND_URI || import.meta.env.VITE_LOCAL_BKND_URI;
+
   const navigate = useNavigate();
   const [isHidden, setIsHidden] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,7 +59,7 @@ const SideDrawer = () => {
         },
       };
       const { data } = await axios.get(
-        `http://localhost:3000/api/users?search=${search}`,
+        `${BACKEND_URI}/api/users?search=${search}`,
         config
       );
       setSearchResult(data);
